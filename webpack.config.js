@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const plugins = [
   new MiniCssExtractPlugin({
-    filename: '[name].[contenthash].css',
+    filename: 'assets/style/[name].[contenthash].css',
   }),
   new HtmlWebpackPlugin({
     template: './src/index.html',
@@ -29,7 +29,8 @@ module.exports = {
   plugins,
   devtool: 'source-map',
   entry: {
-    app:  './src/index.js'
+    app:  './src/index.js',
+    page: './src/main.js'
   },
   devServer: {
     static: './dist',
@@ -38,7 +39,8 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, 'dist'),
-    assetModuleFilename: 'assets/[hash][ext][query]',
+    //assetModuleFilename: '[hash][ext][query]',
+    filename: 'assets/js/[name].[contenthash].js',
     clean: true,
   },
 
@@ -57,10 +59,16 @@ module.exports = {
       {
         test: /\.(png|jpe?g|gif|svg|webp|ico)$/i,
         type: mode === 'production' ? 'asset' : 'asset/resource',
+        generator: {
+          filename: 'assets/img/[name][ext]'
+        }
       },
       {
         test: /\.(woff2?|eot|ttf|otf)$/i,
         type: 'asset/resource',
+        generator: {
+          filename: 'assets/fonts/[name][ext]'
+        }
       },
       {
         test: /\.jsx?$/,
