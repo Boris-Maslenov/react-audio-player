@@ -311,3 +311,146 @@ body {
     }
 }
 // PLAYER END
+
+// CONTENT BLOCK
+.content-block {
+    &__dark {
+        color: $font-color-white;
+    }
+
+    &__inner {
+        padding: 120px 40px 0px 40px;
+
+        @media(max-width: 576px) {
+            padding: 40px 0 80px 0;
+        }
+    }
+}
+
+.article-default {
+    display: flex;
+
+    &__text {
+        @media(max-width: 992px) {
+            padding-bottom: 40px;
+        }
+    }
+
+    &__images {
+        padding-left: 3%;
+    }
+
+    &>* {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+
+    @media (max-width: 992px) {
+        flex-wrap: wrap;
+
+        &>* {
+            width: 100%;
+        }
+
+    }
+}
+
+
+.complex-view {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    @media (max-width: 992px) {
+        max-width: 70%;
+        margin: 0 auto;
+    }
+
+    @media(max-width: 576px) {
+        max-width: 100%;
+    }
+
+    &__border-element {
+        flex: 1 0 auto;
+        width: auto;
+        height: calc(100% - 112px);
+        position: relative;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translate(0%, -50%);
+            left: 0;
+            width: 70%;
+            height: 1px;
+            border-top: 1px dashed #919E9F;
+
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            width: 30%;
+            height: 100%;
+            border-top: 1px dashed #919E9F;
+            border-bottom: 1px dashed #919E9F;
+            border-left: 1px dashed #919E9F;
+            right: 0;
+        }
+
+        @media(max-width: 576px) {
+            height: calc(100% - 49px);
+        }
+    }
+
+    &__item {
+        transition: all .3s;
+        width: 112px;
+        height: 112px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 13px;
+        background-color: #323033;
+
+        &_orange {
+            background-color: $color-orange;
+            width: 92px;
+            height: 92px;
+        }
+
+        @media(max-width: 576px) {
+            width: 49px;
+            height: 49px;
+            padding: 5px;
+        }
+    }
+
+    &__right-column {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    @media (max-width: 992px) {
+        &__item:last-child {
+            margin-top: 70px;
+        }
+    }
+}
+
+.text-default {
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 32px;
+    color: #EEE;
+}
+
+.article-default__text .text-default {
+    margin-top: 40px;
+}
+// CONTENT BLOCK END
