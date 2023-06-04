@@ -236,80 +236,80 @@ body {
     }
 }
 
-.audio-player {
-    position: relative;
-    background-color: $font-color-dark-gray;
-    min-height: 158px;
-    padding: 20px;
+// .audio-player {
+//     position: relative;
+//     background-color: $font-color-dark-gray;
+//     min-height: 158px;
+//     padding: 20px;
 
-    &__controls {
-        min-height: inherit;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
+//     &__controls {
+//         min-height: inherit;
+//         display: flex;
+//         flex-direction: column;
+//         justify-content: space-between;
+//     }
 
-    &__bottom {
-        display: flex;
-        justify-content: space-between;
-    }
+//     &__bottom {
+//         display: flex;
+//         justify-content: space-between;
+//     }
 
-    &__time {
-        font-weight: 400;
-        font-size: 12px;
-        line-height: 16px;
-    }
+//     &__time {
+//         font-weight: 400;
+//         font-size: 12px;
+//         line-height: 16px;
+//     }
 
-    &__play {
-        background: url(../img/play-icon.svg) no-repeat center;
-    }
+//     &__play {
+//         background: url(../img/play-icon.svg) no-repeat center;
+//     }
 
-    &__pause {
-        background: url(../img/pause-icon.svg) no-repeat center;
-    }
+//     &__pause {
+//         background: url(../img/pause-icon.svg) no-repeat center;
+//     }
 
-    &__button {
-        width: 40px;
-        height: 40px;
-        background-size: auto;
-    }
+//     &__button {
+//         width: 40px;
+//         height: 40px;
+//         background-size: auto;
+//     }
 
-    &__loading {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 5px;
-        background: transparent;
-        overflow: hidden;
-    }
-}
+//     &__loading {
+//         position: absolute;
+//         top: 0;
+//         left: 0;
+//         width: 100%;
+//         height: 5px;
+//         background: transparent;
+//         overflow: hidden;
+//     }
+// }
 
-.loading-animation {
-    &__flash {
-        position: absolute;
-        top: 0;
-        left: 0px;
-        width: 50%;
-        height: inherit;
-        background-color: #fff;
-        animation: moving 1.4s linear infinite;
-    }
-}
+// .loading-animation {
+//     &__flash {
+//         position: absolute;
+//         top: 0;
+//         left: 0px;
+//         width: 50%;
+//         height: inherit;
+//         background-color: #fff;
+//         animation: moving 1.4s linear infinite;
+//     }
+// }
 
-.back-button {
-    font-weight: 400;
-    padding-left: 0px;
-    position: relative;
-    cursor: pointer;
-    margin-bottom: 20px;
+// .back-button {
+//     font-weight: 400;
+//     padding-left: 0px;
+//     position: relative;
+//     cursor: pointer;
+//     margin-bottom: 20px;
 
-    &:before {
-        content: '←';
-        color: inherit;
-        font-weight: inherit;
-    }
-}
+//     &:before {
+//         content: '←';
+//         color: inherit;
+//         font-weight: inherit;
+//     }
+// }
 // PLAYER END
 
 // CONTENT BLOCK
