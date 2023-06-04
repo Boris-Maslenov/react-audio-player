@@ -6,10 +6,9 @@ import { AudioPlayer } from '../audioPlayer/';
 
 export const Player = () => {
     return(
-        <>
-           <Form />
-           <AudioPlayer />
-        </>
-     
+        <div className="app-player">
+            <Form />
+           <AudioPlayer />          
+        </div>
     ) 
 }
