@@ -1,0 +1,5 @@
+@keyframes moving {
+    0%{transform: translateX(-100%)}
+    30%{transform: translateX(200%)}
+    100%{transform: translateX(200%)}
+}
