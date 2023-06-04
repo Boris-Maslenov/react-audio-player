@@ -4,8 +4,7 @@ import React from 'react';
 import {useEffect, useState, useRef} from 'react';
 
 import RangeSlider from "react-range-slider-input";
- import "react-range-slider-input/dist/style.css";
-
+import "react-range-slider-input/dist/style.css";
 const url = 'https://c5.radioboss.fm:18084/stream';
 // const url = 'https://d.lalal.ai/media/split/ebf6a7a0-2d14-4761-a898-3fc2100fd6a8/bcd093a8-7cf1-4178-a7b1-9a9d00a5625e/no_vocals';
 //const url = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/858/outfoxing.mp3';
@@ -27,9 +26,7 @@ export const AudioPlayer = () => {
     const [currentTime, setCurrentTime] = useState(0);
     const [volume, setVolume] = useState(100);
 
-    //console.log(volume)
-
-    const audioElement = useRef(new Audio(url));
+    const audioElement = useRef();
 
     const volumeChange = (value) => {
         audioElement.current.volume = value/100;
@@ -48,21 +45,21 @@ export const AudioPlayer = () => {
         audio.onplaying = (e) => {
             setLoadStatus('loaded');
             setPlayStatus('playing');
-            console.log('onplaying', audioElement.current.currentTime);
+            console.log('onplaying', audio.currentTime);
         }
         audio.onpause = (e) => {
             setPlayStatus('pause');
-            console.log('pause', audioElement.current.currentTime);
+            console.log('pause', audio.currentTime);
         }
         audio.onerror = (e) => {
             setLoadStatus('error');
             console.dir('error');
         }
         audio.ontimeupdate = (e) => {
-            setCurrentTime(Math.round(audio.currentTime))
+            setCurrentTime(Math.floor(audio.currentTime))
         }
         audio.onvolumechange = (e) => {
-            console.log(audio.volume)
+            //console.log(audio.volume)
         }
     }
 
@@ -84,9 +81,9 @@ export const AudioPlayer = () => {
                 <div className="audio-player__controls">
                     <div className="audio-player__buttons">
                         {
-                           audioElement.current.paused ?
-                           <button disabled={loadStatus !== 'loaded'} onClick={() => audioElement.current.play()} className="audio-player__button audio-player__play"></button> :
-                           <button onClick={() => audioElement.current.pause()}  className="audio-player__button audio-player__pause"></button> 
+                           audioElement.current?.paused ?
+                           <button disabled={loadStatus !== 'loaded'} onClick={() => audioElement.current?.play()} className="audio-player__button audio-player__play"></button> :
+                           <button onClick={() => audioElement.current?.pause()}  className="audio-player__button audio-player__pause"></button> 
                         } 
                     </div>
                     <div className="audio-player__progress">
@@ -94,18 +91,20 @@ export const AudioPlayer = () => {
                     </div>
                     <div className="audio-player__bottom">
                         <div className="audio-player__time">{getTime(currentTime)}</div>
-                        <div className="audio-player__volume">{ 
-                                <RangeSlider className="range-slider range-slider__volume"
-                                                min={0} max={100}
-                                                thumbsDisabled={[true, false]}
-                                                rangeSlideDisabled={true}
-                                                onInput={(v) => volumeChange(v[1])}
-                                                value={[0, volume]}   
-                                />
-                            }
+                        <div className="audio-player__volume">
+                        { 
+                            <RangeSlider className="range-slider__volume"
+                                            min={0} max={100}
+                                            thumbsDisabled={[true, false]}
+                                            rangeSlideDisabled={true}
+                                            onInput={(v) => volumeChange(v[1])}
+                                            value={[0, volume]}   
+                            />
+                        }
                         </div>
                     </div>
                 </div>
+                <audio preload='auto' ref={audioElement} src={url} />
             </div>
         </div>
     )
