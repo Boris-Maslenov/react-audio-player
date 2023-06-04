@@ -9,6 +9,63 @@
     <title>React Audio Player</title>
   </head>
   <body>
-    <div id="root"></div>
+    <!-- <div id="root"></div> -->
+    <div class="main">
+      <div class="container main__container">
+          <div class="grid-template main__inner">
+              <div class="grid-template__col-1 main__title">
+                  <h1 class="title">Play any audio sources directly in the browser!</h1>              
+              </div>
+              <div class="grid-template__col-2 main__app">
+                  <div id="root">
+                      <div class="app-player">
+                          <div class="start-form" style="">                      
+                              <div class="start-form__action-text">Insert the link</div>
+                                  <form action="" class="get-audio get-audio_message">
+                                      <div class="get-audio__inner">                             
+                                              <label class="input-wrap">
+                                                  <span class="get-audio__wrong-icon">
+                                                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#C6A827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                          <path d="M12 8V12" stroke="#C6A827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                          <circle cx="12" cy="16" r="0.5" fill="black" stroke="#C6A827"/>
+                                                      </svg>
+                                                  </span>
+                                                  <input class="get-audio__input" name="url-input" type="text" placeholder="https://" required />
+                                              </label>
+                                          <button class="get-audio__submit" type="submit"></button>
+                                      </div>  
+                                      <span class="get-audio__message">Error message here</span>                              
+                              </form>
+                          </div>
+                          <div class="audio-player-wrap"  style="">              
+                              <div class="back-button">Back</div>
+                              <div class="audio-player app-player__body">
+                                  <div class="audio-player__loading loading-animation"><span class="loading-animation__flash"></span></div>
+                                  <div class="audio-player__controls">
+                                      <div class="audio-player__buttons">
+                                          <button class="audio-player__button audio-player__play"></button>
+                                          <button class="audio-player__button audio-player__pause"></button>
+                                      </div>
+                                      <div class="audio-player__progress">
+                                          proggress
+                                      </div>
+                                      <div class="audio-player__bottom">
+                                          <div class="audio-player__time">00:00</div>
+                                          <div class="audio-player__volume">volume</div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="grid-template__col-3 main__outher">
+                  <span class="title-after">Without any restrictions for free</span>
+                  <span class="agreement-text">By uploading the audio file, you agree to our <a href="#" class="">Terms of Service</a>.</span>
+              </div>
+          </div>
+      </div>
+  </div>
   </body>
 </html>
