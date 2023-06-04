@@ -30,7 +30,7 @@ module.exports = {
   devtool: 'source-map',
   entry: {
     app:  './src/index.js',
-    page: './src/main.js'
+    // page: './src/main.js'
   },
   devServer: {
     static: './dist',

@@ -1,4 +1,6 @@
 import React from 'react';
 
-const App = () => <h1>Hellow world</h1>
+import {Player} from './components/player';
+
+const App = () => <Player />
 export default App;
