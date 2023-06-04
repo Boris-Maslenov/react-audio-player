@@ -6,6 +6,8 @@
     min-height: 158px;
     padding: 20px;
 
+
+
     &__controls {
         min-height: inherit;
         display: flex;
@@ -22,6 +24,10 @@
         font-weight: 400;
         font-size: 12px;
         line-height: 16px;
+    }
+
+    &__volume {
+        width: 40%;
     }
 
     &__play {

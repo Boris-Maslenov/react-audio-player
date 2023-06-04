@@ -3,6 +3,9 @@ import './audioPlayer.scss';
 import React from 'react';
 import {useEffect, useState, useRef} from 'react';
 
+import RangeSlider from "react-range-slider-input";
+ import "react-range-slider-input/dist/style.css";
+
 const url = 'https://c5.radioboss.fm:18084/stream';
 // const url = 'https://d.lalal.ai/media/split/ebf6a7a0-2d14-4761-a898-3fc2100fd6a8/bcd093a8-7cf1-4178-a7b1-9a9d00a5625e/no_vocals';
 //const url = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/858/outfoxing.mp3';
@@ -22,8 +25,16 @@ export const AudioPlayer = () => {
     const [loadStatus, setLoadStatus] = useState(''); // loading, loaded, error
     const [playStatus, setPlayStatus] = useState(); // playing, pause
     const [currentTime, setCurrentTime] = useState(0);
+    const [volume, setVolume] = useState(100);
+
+    //console.log(volume)
 
     const audioElement = useRef(new Audio(url));
+
+    const volumeChange = (value) => {
+        audioElement.current.volume = value/100;
+        setVolume(value);
+    }
 
     const audioHandler = (audio) => {
         audio.onloadstart = (e) => {
@@ -49,6 +60,9 @@ export const AudioPlayer = () => {
         }
         audio.ontimeupdate = (e) => {
             setCurrentTime(Math.round(audio.currentTime))
+        }
+        audio.onvolumechange = (e) => {
+            console.log(audio.volume)
         }
     }
 
@@ -80,7 +94,16 @@ export const AudioPlayer = () => {
                     </div>
                     <div className="audio-player__bottom">
                         <div className="audio-player__time">{getTime(currentTime)}</div>
-                        <div className="audio-player__volume">volume</div>
+                        <div className="audio-player__volume">{ 
+                                <RangeSlider className="range-slider range-slider__volume"
+                                                min={0} max={100}
+                                                thumbsDisabled={[true, false]}
+                                                rangeSlideDisabled={true}
+                                                onInput={(v) => volumeChange(v[1])}
+                                                value={[0, volume]}   
+                                />
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
