@@ -9,13 +9,7 @@ export const Form = () => {
     const [displayWrong, setDisplayWrong] = useState(false);
     const urlCheck = (url) => {
         const regExp = /^(http|https):\/\/.{5,}/g;
-        const match = regExp.test(url.trim());
-        setDisplayWrong(!match);
-        if(match){
-            setUrl(url);
-            addToHistory(url); // Optional
-            toAudioplayer();
-        } 
+        return regExp.test(url.trim());
     }
     const addToHistory = (url) => {
         if(!history.includes(url)){
@@ -24,10 +18,15 @@ export const Form = () => {
     }
     const handleSubmit = (event) => {
         event.preventDefault();
-        urlCheck(link);
+        const isValudUrl = urlCheck(link);
+        setDisplayWrong(!isValudUrl);
+            if(isValudUrl){
+                setUrl(link);
+                addToHistory(link); // Optional
+                toAudioplayer();
+            } 
     }
     const handleInput = (e) => {
-       //setLink(e.target.value);
        setLink(e);
        if(displayWrong){
             setDisplayWrong(false);
@@ -36,7 +35,7 @@ export const Form = () => {
     return (
         <div className="start-form">                      
         <div className="start-form__action-text">Insert the link</div>
-            <form onSubmit={handleSubmit} action='' className="get-audio">
+            <form onSubmit={handleSubmit} className="get-audio">
                 <div className="get-audio__inner">                             
                         <label className="input-wrap">
                         {
