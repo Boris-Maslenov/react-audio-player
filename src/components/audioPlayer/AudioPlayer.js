@@ -2,6 +2,7 @@ import './audioPlayer.scss';
 import React from 'react';
 import {useEffect, useState, useRef, useContext} from 'react';
 import RangeSlider from "react-range-slider-input";
+import { Error } from '../error';
 import { PlayerContext } from '../../context/player/playerContext';
 import { getTime } from '../../services/getTime.service';
 
@@ -80,40 +81,44 @@ const onKeyDownHandle = (e) => {
                     <span className="loading-animation__flash"></span>
                 </div>
             }
+            {
+                loadStatus === 'error' ? <Error message="Ошибка загрузки media" /> :
                 <div className="audio-player__controls">
-                    <div className="audio-player__buttons">
-                        { playStatus === 'pause' ?
-                           <button disabled={loadStatus !== 'loaded'} onClick={() => audioElement.current.play()}
-                                     className="audio-player__button audio-player__play"></button> :
-                           <button onClick={() => audioElement.current.pause()}
-                                    className="audio-player__button audio-player__pause"></button> 
-                        } 
-                    </div>
-                    <div className="audio-player__progress">
-                        {   <RangeSlider className="range-slider__progress"
-                                            min={0} max={100}
-                                            thumbsDisabled={[true, false]}
-                                            rangeSlideDisabled={true}
-                                            onInput={([,v]) => progressChange(v)}
-                                            step={1}
-                                            value={[0, progress]} />
-                        }
-                    </div>
-                    <div className="audio-player__bottom">
-                        <div className="audio-player__time">{getTime(currentTime)}</div>
-                        <div className="audio-player__volume">
-                        { 
-                            <RangeSlider className="range-slider__volume"
-                                            min={0} max={100}
-                                            thumbsDisabled={[true, false]}
-                                            rangeSlideDisabled={true}
-                                            onInput={([,v]) => volumeChange(v)}
-                                            value={[0, volume]}   
-                            />
-                        }
-                        </div>
+                <div className="audio-player__buttons">
+                    { playStatus === 'pause' ?
+                       <button disabled={loadStatus !== 'loaded'} onClick={() => audioElement.current.play()}
+                                 className="audio-player__button audio-player__play"></button> :
+                       <button onClick={() => audioElement.current.pause()}
+                                className="audio-player__button audio-player__pause"></button> 
+                    } 
+                </div>
+                <div className="audio-player__progress">
+                    {   <RangeSlider className="range-slider__progress"
+                                        min={0} max={100}
+                                        thumbsDisabled={[true, false]}
+                                        rangeSlideDisabled={true}
+                                        onInput={([,v]) => progressChange(v)}
+                                        step={1}
+                                        value={[0, progress]} />
+                    }
+                </div>
+                <div className="audio-player__bottom">
+                    <div className="audio-player__time">{getTime(currentTime)}</div>
+                    <div className="audio-player__volume">
+                    { 
+                        <RangeSlider className="range-slider__volume"
+                                        min={0} max={100}
+                                        thumbsDisabled={[true, false]}
+                                        rangeSlideDisabled={true}
+                                        onInput={([,v]) => volumeChange(v)}
+                                        value={[0, volume]}   
+                        />
+                    }
                     </div>
                 </div>
+            </div>
+            }
+
                 <audio ref={audioElement} src={url} playsInline autoPlay  />
             </div>
         </div>
