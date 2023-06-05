@@ -2,15 +2,13 @@ import './form.scss';
 import React, {useState, useContext} from 'react';
 import { PlayerContext } from '../../context/player/playerContext';
 import {ComboBox} from '../comboBox';
+import {urlCheck} from '../../services/urlCheck.service';
 
 export const Form = () => {
     const {setUrl, toAudioplayer, addHistory, history} = useContext(PlayerContext);
     const [link, setLink] = useState('');
     const [displayWrong, setDisplayWrong] = useState(false);
-    const urlCheck = (url) => {
-        const regExp = /^(http|https):\/\/.{5,}/g;
-        return regExp.test(url.trim());
-    }
+
     const addToHistory = (url) => {
         if(!history.includes(url)){
             addHistory(url); 
