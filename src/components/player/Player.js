@@ -11,9 +11,9 @@ const SCREEN_MAP = {
     'form' : <Form />,
     'player': <AudioPlayer />,
 }
+const initialState = {screen: 'form', url: '', history: ['https://nashe1.hostingraddfdfdfdfdfdfdfdfdfdfdfdfdfio.ru:80/nashe-128.mp3', 'https://nashe1.hostingradio.ru:80/nashe-128.mp3']}
 
 export const Player = () => {
-    const initialState = {screen: 'form', url: '', history: []}
     const [state, dispatch] = useReducer(playerReducer, initialState);
     const screen = SCREEN_MAP[state.screen];
     const setUrl = url => dispatch({type: 'SET_URL', payload: url});
@@ -21,8 +21,6 @@ export const Player = () => {
     const addHistory = (url) => dispatch({type: 'ADD_HISTORY', payload: url});
     const toForm = () => dispatch({type: 'TO_FORM'});
  
-    console.log(state.history)
-
     return(
         <div className="app-player">
             <PlayerContext.Provider value={{url: state.url, setUrl,  toAudioplayer, toForm, addHistory, history: state.history}}>

@@ -1,7 +1,7 @@
 import './form.scss';
-import React from 'react';
-import {useState, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import { PlayerContext } from '../../context/player/playerContext';
+import {ComboBox} from '../comboBox';
 
 export const Form = () => {
     const {setUrl, toAudioplayer, addHistory, history} = useContext(PlayerContext);
@@ -27,7 +27,8 @@ export const Form = () => {
         urlCheck(link);
     }
     const handleInput = (e) => {
-       setLink(e.target.value);
+       //setLink(e.target.value);
+       setLink(e);
        if(displayWrong){
             setDisplayWrong(false);
        }
@@ -47,8 +48,8 @@ export const Form = () => {
                                         <circle cx="12" cy="16" r="0.5" fill="black" stroke="#C6A827"/>
                                     </svg>
                                 </span> 
-                        }   
-                            <input value={link} onChange={handleInput} className={displayWrong ? 'get-audio__input  get-audio__input_wrong' : 'get-audio__input'} name="url-input" type="text" placeholder="https://" required />
+                        }         
+                            <ComboBox history={history} value={link} onChange={handleInput} className={displayWrong ? 'get-audio__input  get-audio__input_wrong' : 'get-audio__input'} name="url-input" placeholder="https://" />
                         </label>
                     <button className="get-audio__submit" type="submit"></button>
                 </div>  

@@ -16,6 +16,22 @@
     width: 100%;
     position: relative;
 
+    &__list {
+        background-color: #fff;
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+        & > li {
+            max-width: 100%;
+            padding: 10px 5px 10px 5px;
+            overflow: hidden;
+            font-size: 20px;
+            color: $font-color-input-gray;
+            font-weight: 300;
+            border-top: 1px solid $font-color-dark-gray;
+        }
+    }
+
     &__inner {
         display: flex;
         width: 100%;
