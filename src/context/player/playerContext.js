@@ -1,4 +1,4 @@
 import React from "react";
-import {useContext} from "react";
+import {createContext} from "react";
 
-export const playerContext = useContext();
+export const PlayerContext = createContext();

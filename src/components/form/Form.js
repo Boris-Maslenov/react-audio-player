@@ -1,33 +1,31 @@
 import './form.scss';
 import React from 'react';
-import {useEffect, useState} from 'react';
+import {useState, useContext} from 'react';
+import { PlayerContext } from '../../context/player/playerContext';
 
-export const Form = ({onPlayer}) => {
-
+export const Form = () => {
+    const {setUrl, toAudioplayer} = useContext(PlayerContext);
     const [link, setLink] = useState('');
-    // const [isValid, setIsValid] = useState(false);
     const [displayWrong, setDisplayWrong] = useState(false);
-
     const urlCheck = (url) => {
         const regExp = /^(http|https):\/\/.{5,}/g;
         const match = regExp.test(url.trim());
-        // setIsValid(match);
         setDisplayWrong(!match);
-        if(match) onPlayer()
+        if(match){
+            setUrl(url);
+            toAudioplayer();
+        } 
     }
-
     const handleSubmit = (event) => {
         event.preventDefault();
         urlCheck(link);
     }
-
     const handleInput = (e) => {
        setLink(e.target.value);
        if(displayWrong){
             setDisplayWrong(false);
        }
     }
-
     return (
         <div className="start-form">                      
         <div className="start-form__action-text">Insert the link</div>
@@ -42,7 +40,7 @@ export const Form = ({onPlayer}) => {
                                         <path d="M12 8V12" stroke="#C6A827" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                         <circle cx="12" cy="16" r="0.5" fill="black" stroke="#C6A827"/>
                                     </svg>
-                                </span>
+                                </span> 
                         }   
                             <input value={link} onChange={handleInput} className={displayWrong ? 'get-audio__input  get-audio__input_wrong' : 'get-audio__input'} name="url-input" type="text" placeholder="https://" required />
                         </label>
@@ -50,8 +48,7 @@ export const Form = ({onPlayer}) => {
                 </div>  
                 { displayWrong &&
                   <span className="get-audio__message">Error message here</span>   
-                }
-                                           
+                }                                          
             </form>
         </div>
     )

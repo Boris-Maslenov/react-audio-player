@@ -1,23 +1,30 @@
 import React from 'react';
-import {useEffect, useState} from 'react';
+import {useReducer} from 'react';
+
+import { PlayerContext } from '../../context/player/playerContext';
+import { playerReducer } from '../../context/player/playerReducer';
 
 import { Form } from '../form';
 import { AudioPlayer } from '../audioPlayer/';
 
-//const url = 'https://c5.radioboss.fm:18084/stream';
-// const url = 'https://d.lalal.ai/media/split/ebf6a7a0-2d14-4761-a898-3fc2100fd6a8/bcd093a8-7cf1-4178-a7b1-9a9d00a5625e/no_vocals';
-//const url = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/858/outfoxing.mp3';
+const SCREEN_MAP = {
+    'form' : <Form />,
+    'player': <AudioPlayer />,
+}
 
 export const Player = () => {
-    const SCREEN_MAP = {
-        'form' : <Form onPlayer={()=> setScreen('player')} />,
-        'player': <AudioPlayer url={url} onBack={()=> setScreen('form')} />,
-    }
-    const [screen, setScreen] = useState('form');
-    const content = SCREEN_MAP[screen];
+    const initialState = {screen: 'form', url: ''}
+    const [state, dispatch] = useReducer(playerReducer, initialState);
+    const screen = SCREEN_MAP[state.screen];
+    const setUrl = url => dispatch({type: 'SET_URL', payload: url});
+    const toAudioplayer = () => dispatch({type: 'TO_AUDIOPLAYER'});
+    const toForm = () => dispatch({type: 'TO_FORM'});
+ 
     return(
         <div className="app-player">
-            {content}       
+            <PlayerContext.Provider value={{url: state.url, setUrl,  toAudioplayer, toForm}}>
+                {screen}
+            </PlayerContext.Provider>
         </div>
     ) 
 }

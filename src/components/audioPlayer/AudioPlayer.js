@@ -1,9 +1,8 @@
 import './audioPlayer.scss';
 import React from 'react';
-import {useEffect, useState, useRef} from 'react';
+import {useEffect, useState, useRef, useContext} from 'react';
 import RangeSlider from "react-range-slider-input";
-
-
+import { PlayerContext } from '../../context/player/playerContext';
 
 const getTime = (time) => {
     const hourse = time/60/60
@@ -15,16 +14,17 @@ const getTime = (time) => {
     return `${tMinutes < 10 ? `0${tMinutes}` :  tMinutes} : ${tSecond < 10 ? `0${tSecond}` :  tSecond}`;
 }
 
-export const AudioPlayer = ({url, onBack}) => {
-
-    const [loadStatus, setLoadStatus] = useState(''); // loading, loaded, error
-    const [playStatus, setPlayStatus] = useState('pause'); // playing, pause
+export const AudioPlayer = () => {
+    const {url, toForm} = useContext(PlayerContext);
+    const [loadStatus, setLoadStatus] = useState(''); 
+    const [playStatus, setPlayStatus] = useState('pause');
     const [currentTime, setCurrentTime] = useState(0);
     const [volume, setVolume] = useState(100);
     const [progress, setProgress] = useState(0);
-
     const audioElement = useRef();
-
+    useEffect(() => {
+        audioHandler(audioElement.current);
+    }, []);
     const volumeChange = (value) => {
         audioElement.current.volume = value / 100;
         setVolume(value);
@@ -62,15 +62,10 @@ export const AudioPlayer = ({url, onBack}) => {
         }
     }
 
-    useEffect(() => {
-        audioHandler(audioElement.current);
-    }, []);
-
     // { loadStatus === 'error' ? <p>Ошибка загрузки</p> : void 0}
-
     return (
         <div className="audio-player-wrap">              
-            <div onClick={onBack} className="back-button">Back</div>
+            <div onClick={toForm} className="back-button">Back</div>
             <div className="audio-player app-player__body">
            
             {
@@ -83,18 +78,19 @@ export const AudioPlayer = ({url, onBack}) => {
                     <div className="audio-player__buttons">
                         {
                            playStatus === 'pause' ?
-                           <button disabled={loadStatus !== 'loaded'} onClick={() => audioElement.current.play()} className="audio-player__button audio-player__play"></button> :
-                           <button onClick={() => audioElement.current.pause()}  className="audio-player__button audio-player__pause"></button> 
+                           <button disabled={loadStatus !== 'loaded'} onClick={() => audioElement.current.play()}
+                                     className="audio-player__button audio-player__play"></button> :
+                           <button onClick={() => audioElement.current.pause()}
+                                    className="audio-player__button audio-player__pause"></button> 
                         } 
                     </div>
                     <div className="audio-player__progress">
-
                         { 
                             <RangeSlider className="range-slider__progress"
                                             min={0} max={100}
                                             thumbsDisabled={[true, false]}
                                             rangeSlideDisabled={true}
-                                            onInput={(v) => progressChange(v[1])}
+                                            onInput={([,v]) => progressChange(v)}
                                             step={0.1}
                                             value={[0, progress]}   
                             />
@@ -108,7 +104,7 @@ export const AudioPlayer = ({url, onBack}) => {
                                             min={0} max={100}
                                             thumbsDisabled={[true, false]}
                                             rangeSlideDisabled={true}
-                                            onInput={(v) => volumeChange(v[1])}
+                                            onInput={([,v]) => volumeChange(v)}
                                             value={[0, volume]}   
                             />
                         }
