@@ -17,13 +17,11 @@ export const Form = () => {
             toAudioplayer();
         } 
     }
-
     const addToHistory = (url) => {
         if(!history.includes(url)){
             addHistory(url); 
         }
     }
-
     const handleSubmit = (event) => {
         event.preventDefault();
         urlCheck(link);
