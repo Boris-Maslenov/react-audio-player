@@ -17,6 +17,7 @@ export const AudioPlayer = () => {
         audioHandler(audioElement.current);
     }, []);
     const volumeChange = (value) => {
+        if( value < 0 || value >  100) return;
         audioElement.current.volume = value / 100;
         setVolume(value);
     }
@@ -53,11 +54,29 @@ export const AudioPlayer = () => {
         }
     }
 
+const onKeyDownHandle = (e) => {
+    const key = e.code;
+    switch(key){
+        case "KeyP" : 
+            playStatus === 'pause' ? 
+            audioElement.current.play() : 
+            audioElement.current.pause();
+        break;
+        case "Comma" : 
+             volumeChange(volume - 5);
+        break;
+        case "Period" : 
+             volumeChange(volume + 5);
+        break;
+        default: return;
+    }
+}
+
     // { loadStatus === 'error' ? <p>Ошибка загрузки</p> : void 0}
     return (
-        <div className="audio-player-wrap">              
+        <div className="audio-player-wrap" tabIndex="1" onKeyDown={onKeyDownHandle}>              
             <div onClick={toForm} className="back-button">Back</div>
-            <div className="audio-player app-player__body">
+            <div className="audio-player app-player__body" >
            
             {
                 loadStatus === 'loading' && 
@@ -102,7 +121,7 @@ export const AudioPlayer = () => {
                         </div>
                     </div>
                 </div>
-                <audio ref={audioElement} src={url} playsInline />
+                <audio ref={audioElement} src={url} playsInline autoPlay  />
             </div>
         </div>
     )
