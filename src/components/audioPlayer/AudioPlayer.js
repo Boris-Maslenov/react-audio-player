@@ -27,7 +27,6 @@ export const AudioPlayer = () => {
             audioElement.current.currentTime = p;
         }
     }
-
     const audioHandler = (audio) => {
         audio.onloadstart = () => {
             setLoadStatus('loading');
@@ -43,7 +42,6 @@ export const AudioPlayer = () => {
         }
         audio.onerror = () => {
             setLoadStatus('error');
-            console.dir('error');
         }
         audio.ontimeupdate = () => {
             setCurrentTime(Math.floor(audio.currentTime));
@@ -53,7 +51,6 @@ export const AudioPlayer = () => {
             setProgress(0) 
         }
     }
-
 const onKeyDownHandle = (e) => {
     const key = e.code;
     switch(key){
@@ -71,8 +68,7 @@ const onKeyDownHandle = (e) => {
         default: return;
     }
 }
-
-    // { loadStatus === 'error' ? <p>Ошибка загрузки</p> : void 0}
+// { loadStatus === 'error' ? <p>Ошибка загрузки</p> : void 0}
     return (
         <div className="audio-player-wrap" tabIndex="1" onKeyDown={onKeyDownHandle}>              
             <div onClick={toForm} className="back-button">Back</div>

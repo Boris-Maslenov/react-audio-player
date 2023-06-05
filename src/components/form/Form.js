@@ -4,7 +4,7 @@ import {useState, useContext} from 'react';
 import { PlayerContext } from '../../context/player/playerContext';
 
 export const Form = () => {
-    const {setUrl, toAudioplayer} = useContext(PlayerContext);
+    const {setUrl, toAudioplayer, addHistory, history} = useContext(PlayerContext);
     const [link, setLink] = useState('');
     const [displayWrong, setDisplayWrong] = useState(false);
     const urlCheck = (url) => {
@@ -13,9 +13,17 @@ export const Form = () => {
         setDisplayWrong(!match);
         if(match){
             setUrl(url);
+            addToHistory(url); // Optional
             toAudioplayer();
         } 
     }
+
+    const addToHistory = (url) => {
+        if(!history.includes(url)){
+            addHistory(url); 
+        }
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
         urlCheck(link);
