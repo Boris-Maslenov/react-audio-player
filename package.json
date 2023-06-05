@@ -9,18 +9,7 @@
     "build-prod": "webpack --mode=production",
     "clean": "rd /s /q dist"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Boris-Maslenov/react-audio-player.git"
-  },
-  "keywords": [
-    "JavaScript",
-    "Webpack",
-    "Node"
-  ],
-  "author": "Boris Maslenov <ya.maslenov@yandex.ru>",
   "license": "ISC",
-  "homepage": "https://github.com/Boris-Maslenov/react-audio-player.git",
   "devDependencies": {
     "@babel/core": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
