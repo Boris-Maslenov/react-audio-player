@@ -3,16 +3,7 @@ import React from 'react';
 import {useEffect, useState, useRef, useContext} from 'react';
 import RangeSlider from "react-range-slider-input";
 import { PlayerContext } from '../../context/player/playerContext';
-
-const getTime = (time) => {
-    const hourse = time/60/60
-    const minutes =  time/60
-    const tHours = Math.floor(hourse%60);
-    const tMinutes = Math.floor(minutes%60);
-    const tSecond = Math.floor(time%60)
-    //${tHours < 10 ? `0${tHours}` :  tHours} : 
-    return `${tMinutes < 10 ? `0${tMinutes}` :  tMinutes} : ${tSecond < 10 ? `0${tSecond}` :  tSecond}`;
-}
+import { getTime } from '../../services/getTime.service';
 
 export const AudioPlayer = () => {
     const {url, toForm} = useContext(PlayerContext);
