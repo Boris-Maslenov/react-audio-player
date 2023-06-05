@@ -17,7 +17,7 @@ export const AudioPlayer = () => {
         audioHandler(audioElement.current);
     }, []);
     const volumeChange = (value) => {
-        if( value < 0 || value >  100) return;
+        value > 100 ? value = 100 : value < 0 ? value = 0 : void 0;
         audioElement.current.volume = value / 100;
         setVolume(value);
     }
