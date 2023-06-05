@@ -49,6 +49,10 @@
         background-color: #fff;
         height: 100%;
 
+        &_wrong {
+            border: 1px solid #f3c506;
+        }
+
         &::placeholder {
             color: $font-color-input-gray;
             font-size: inherit;
@@ -91,11 +95,11 @@
         }
     }
 
-    &_message {
-        .get-audio__input {
-            border: 1px solid #f3c506;
-        }
-    }
+    // &_message {
+    //     .get-audio__input {
+    //         border: 1px solid #f3c506;
+    //     }
+    // }
 
     &__message {
         font-size: 16px;

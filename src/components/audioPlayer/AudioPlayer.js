@@ -1,13 +1,9 @@
 import './audioPlayer.scss';
-
 import React from 'react';
 import {useEffect, useState, useRef} from 'react';
-
 import RangeSlider from "react-range-slider-input";
-import "react-range-slider-input/dist/style.css";
-const url = 'https://c5.radioboss.fm:18084/stream';
-// const url = 'https://d.lalal.ai/media/split/ebf6a7a0-2d14-4761-a898-3fc2100fd6a8/bcd093a8-7cf1-4178-a7b1-9a9d00a5625e/no_vocals';
-//const url = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/858/outfoxing.mp3';
+
+
 
 const getTime = (time) => {
     const hourse = time/60/60
@@ -19,47 +15,50 @@ const getTime = (time) => {
     return `${tMinutes < 10 ? `0${tMinutes}` :  tMinutes} : ${tSecond < 10 ? `0${tSecond}` :  tSecond}`;
 }
 
-export const AudioPlayer = () => {
+export const AudioPlayer = ({url}) => {
 
     const [loadStatus, setLoadStatus] = useState(''); // loading, loaded, error
-    const [playStatus, setPlayStatus] = useState(); // playing, pause
+    const [playStatus, setPlayStatus] = useState('pause'); // playing, pause
     const [currentTime, setCurrentTime] = useState(0);
     const [volume, setVolume] = useState(100);
+    const [progress, setProgress] = useState(0);
 
     const audioElement = useRef();
 
     const volumeChange = (value) => {
-        audioElement.current.volume = value/100;
+        audioElement.current.volume = value / 100;
         setVolume(value);
+    }
+    const progressChange = (value) => {
+        const p = (audioElement.current.duration || 0) * (value / 100);
+        if(audioElement.current.duration !== Infinity){
+            audioElement.current.currentTime = p;
+        }
     }
 
     const audioHandler = (audio) => {
-        audio.onloadstart = (e) => {
-            console.dir('loadstart');
+        audio.onloadstart = () => {
             setLoadStatus('loading');
         }
         audio.oncanplaythrough = (e) => {
-            console.dir('canplaythrough');
             setLoadStatus('loaded');
         }
-        audio.onplaying = (e) => {
-            setLoadStatus('loaded');
-            setPlayStatus('playing');
-            console.log('onplaying', audio.currentTime);
-        }
-        audio.onpause = (e) => {
+        audio.onpause = () => {
             setPlayStatus('pause');
-            console.log('pause', audio.currentTime);
         }
-        audio.onerror = (e) => {
+        audio.onplaying = () => {
+            setPlayStatus('playing');
+        }
+        audio.onerror = () => {
             setLoadStatus('error');
             console.dir('error');
         }
-        audio.ontimeupdate = (e) => {
-            setCurrentTime(Math.floor(audio.currentTime))
+        audio.ontimeupdate = () => {
+            setCurrentTime(Math.floor(audio.currentTime));
+            setProgress( (audio.currentTime * 100) / audio.duration ) 
         }
-        audio.onvolumechange = (e) => {
-            //console.log(audio.volume)
+        audio.onended = () => {
+            setProgress(0) 
         }
     }
 
@@ -67,11 +66,13 @@ export const AudioPlayer = () => {
         audioHandler(audioElement.current);
     }, []);
 
- 
+    // { loadStatus === 'error' ? <p>Ошибка загрузки</p> : void 0}
+
     return (
         <div className="audio-player-wrap">              
             <div className="back-button">Back</div>
             <div className="audio-player app-player__body">
+           
             {
                 loadStatus === 'loading' && 
                 <div className="audio-player__loading loading-animation">
@@ -81,13 +82,23 @@ export const AudioPlayer = () => {
                 <div className="audio-player__controls">
                     <div className="audio-player__buttons">
                         {
-                           audioElement.current?.paused ?
-                           <button disabled={loadStatus !== 'loaded'} onClick={() => audioElement.current?.play()} className="audio-player__button audio-player__play"></button> :
-                           <button onClick={() => audioElement.current?.pause()}  className="audio-player__button audio-player__pause"></button> 
+                           playStatus === 'pause' ?
+                           <button disabled={loadStatus !== 'loaded'} onClick={() => audioElement.current.play()} className="audio-player__button audio-player__play"></button> :
+                           <button onClick={() => audioElement.current.pause()}  className="audio-player__button audio-player__pause"></button> 
                         } 
                     </div>
                     <div className="audio-player__progress">
-                        proggress
+
+                        { 
+                            <RangeSlider className="range-slider__progress"
+                                            min={0} max={100}
+                                            thumbsDisabled={[true, false]}
+                                            rangeSlideDisabled={true}
+                                            onInput={(v) => progressChange(v[1])}
+                                            step={0.1}
+                                            value={[0, progress]}   
+                            />
+                        }
                     </div>
                     <div className="audio-player__bottom">
                         <div className="audio-player__time">{getTime(currentTime)}</div>
@@ -104,7 +115,7 @@ export const AudioPlayer = () => {
                         </div>
                     </div>
                 </div>
-                <audio preload='auto' ref={audioElement} src={url} />
+                <audio ref={audioElement} src={url} playsInline />
             </div>
         </div>
     )
