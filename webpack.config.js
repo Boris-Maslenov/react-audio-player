@@ -36,14 +36,11 @@ module.exports = {
     static: './dist',
     hot: true,
   },
-
   output: {
     path: path.resolve(__dirname, 'dist'),
     assetModuleFilename: 'assets/[hash][ext][query]',
-    //filename: 'assets/js/[name].[contenthash].js',
     clean: true,
   },
-
   module: {
     rules: [
       { test: /\.(html)$/, use: ['html-loader'] },
@@ -59,16 +56,10 @@ module.exports = {
       {
         test: /\.(png|jpe?g|gif|svg|webp|ico)$/i,
         type: mode === 'production' ? 'asset' : 'asset/resource',
-        // generator: {
-        //   filename: 'assets/img/[name][ext]'
-        // }
       },
       {
         test: /\.(woff2?|eot|ttf|otf)$/i,
         type: 'asset/resource',
-        // generator: {
-        //   filename: 'assets/fonts/[name][ext]'
-        // }
       },
       {
         test: /\.jsx?$/,

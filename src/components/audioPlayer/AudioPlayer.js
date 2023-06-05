@@ -82,8 +82,7 @@ const onKeyDownHandle = (e) => {
             }
                 <div className="audio-player__controls">
                     <div className="audio-player__buttons">
-                        {
-                           playStatus === 'pause' ?
+                        { playStatus === 'pause' ?
                            <button disabled={loadStatus !== 'loaded'} onClick={() => audioElement.current.play()}
                                      className="audio-player__button audio-player__play"></button> :
                            <button onClick={() => audioElement.current.pause()}
@@ -91,15 +90,13 @@ const onKeyDownHandle = (e) => {
                         } 
                     </div>
                     <div className="audio-player__progress">
-                        { 
-                            <RangeSlider className="range-slider__progress"
+                        {   <RangeSlider className="range-slider__progress"
                                             min={0} max={100}
                                             thumbsDisabled={[true, false]}
                                             rangeSlideDisabled={true}
                                             onInput={([,v]) => progressChange(v)}
-                                            step={0.1}
-                                            value={[0, progress]}   
-                            />
+                                            step={1}
+                                            value={[0, progress]} />
                         }
                     </div>
                     <div className="audio-player__bottom">
