@@ -15,7 +15,7 @@ const getTime = (time) => {
     return `${tMinutes < 10 ? `0${tMinutes}` :  tMinutes} : ${tSecond < 10 ? `0${tSecond}` :  tSecond}`;
 }
 
-export const AudioPlayer = ({url}) => {
+export const AudioPlayer = ({url, onBack}) => {
 
     const [loadStatus, setLoadStatus] = useState(''); // loading, loaded, error
     const [playStatus, setPlayStatus] = useState('pause'); // playing, pause
@@ -70,7 +70,7 @@ export const AudioPlayer = ({url}) => {
 
     return (
         <div className="audio-player-wrap">              
-            <div className="back-button">Back</div>
+            <div onClick={onBack} className="back-button">Back</div>
             <div className="audio-player app-player__body">
            
             {

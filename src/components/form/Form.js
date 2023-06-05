@@ -2,17 +2,18 @@ import './form.scss';
 import React from 'react';
 import {useEffect, useState} from 'react';
 
-export const Form = () => {
+export const Form = ({onPlayer}) => {
 
     const [link, setLink] = useState('');
-    const [isValid, setIsValid] = useState(false);
+    // const [isValid, setIsValid] = useState(false);
     const [displayWrong, setDisplayWrong] = useState(false);
 
     const urlCheck = (url) => {
         const regExp = /^(http|https):\/\/.{5,}/g;
         const match = regExp.test(url.trim());
-        setIsValid(match);
+        // setIsValid(match);
         setDisplayWrong(!match);
+        if(match) onPlayer()
     }
 
     const handleSubmit = (event) => {
