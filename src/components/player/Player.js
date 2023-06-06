@@ -11,7 +11,7 @@ const SCREEN_MAP = {
     player: <AudioPlayer />,
 };
 
-const initialState = { screen: 'form', url: '', history: ['https://nashe1.hostingradio.ru:80/nashe-128.mp3'] };
+const initialState = { screen: 'form', url: '', history: [] };
 
 export const Player = () => {
     const [state, dispatch] = useReducer(playerReducer, initialState);
