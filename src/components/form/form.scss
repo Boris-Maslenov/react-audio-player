@@ -15,6 +15,7 @@
 .get-audio {
     width: 100%;
     position: relative;
+    padding-bottom: 20px;
 
     &__list {
         background-color: #fff;
@@ -111,14 +112,11 @@
         }
     }
 
-    // &_message {
-    //     .get-audio__input {
-    //         border: 1px solid #f3c506;
-    //     }
-    // }
-
     &__message {
         font-size: 16px;
         color: #f3c506;
+        position: absolute;
+        left: 0;
+        bottom: 0;
     }
 }
