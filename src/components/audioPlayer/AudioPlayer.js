@@ -48,7 +48,7 @@ export const AudioPlayer = () => {
             setProgress((audio.currentTime * 100) / audio.duration);
         };
         audio.onended = () => {
-            setProgress(0);
+            //setProgress(0);
         };
     };
     const onKeyDownHandle = (e) => {
@@ -67,7 +67,6 @@ export const AudioPlayer = () => {
                 return;
         }
     };
-    // { loadStatus === 'error' ? <p>Ошибка загрузки</p> : void 0}
     return (
         <div className="audio-player-wrap" tabIndex="1" onKeyDown={onKeyDownHandle}>
             <div onClick={toForm} className="back-button">
@@ -129,7 +128,6 @@ export const AudioPlayer = () => {
                         </div>
                     </div>
                 )}
-
                 <audio ref={audioElement} src={url} playsInline autoPlay />
             </div>
         </div>
