@@ -1,6 +1,5 @@
 import './audioPlayer.scss';
-import React from 'react';
-import { useEffect, useState, useRef, useContext } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import RangeSlider from 'react-range-slider-input';
 import { Error } from '../error';
 import { PlayerContext } from '../../context/player/playerContext';

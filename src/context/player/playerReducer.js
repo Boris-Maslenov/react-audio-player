@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const playerReducer = (state, action) => {
     switch (action.type) {
         case 'SET_URL':

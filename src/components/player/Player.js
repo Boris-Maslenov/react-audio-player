@@ -1,6 +1,4 @@
-import React from 'react';
-import { useReducer } from 'react';
-
+import React, { useReducer } from 'react';
 import { PlayerContext } from '../../context/player/playerContext';
 import { playerReducer } from '../../context/player/playerReducer';
 import { Form } from '../form';
