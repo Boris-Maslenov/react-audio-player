@@ -9,7 +9,7 @@
     "build-prod": "webpack --mode=production",
     "clean": "rd /s /q dist",
     "predeploy": "npm run build-prod",
-    "deploy": "gh-pages -d build-prod"
+    "deploy": "gh-pages -d dist"
   },
   "homepage": "https://boris-maslenov.github.io/react-audio-player/",
   "license": "ISC",
