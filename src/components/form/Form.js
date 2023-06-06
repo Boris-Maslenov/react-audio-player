@@ -66,7 +66,7 @@ export const Form = () => {
                             history={history}
                             value={link}
                             onChange={handleInput}
-                            className={displayWrong ? 'get-audio__input  get-audio__input_wrong' : 'get-audio__input'}
+                            className={displayWrong ? 'get-audio__input  get-audio__input_wrong' : 'get-audio__input'} //Fix
                             name="url-input"
                             placeholder="https://"
                         />

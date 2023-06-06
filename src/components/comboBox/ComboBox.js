@@ -20,7 +20,7 @@ export const ComboBox = ({ className, history, value, onChange }) => {
                             key={`${item}${index}`}
                             {...getItemProps({ item, index })}
                         >
-                            {item.length > 48 ? item.slice(0, 49) + '...' : item}
+                            {item.length > 48 ? item.slice(0, 48) + '...' : item}
                         </li>
                     ))}
             </ul>
